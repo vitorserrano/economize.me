@@ -1,12 +1,12 @@
 const express = require('express');
 
-const app = express();
+const routes = express.Router();
 
-app.get('/', (request, response) => {
+routes.post('/users', (request, response) => {
   return response.json({
     name: 'economize.me',
     tchs: 'Node.js, ReactJS e React Native',
   });
 });
 
-app.listen(3333);
+module.exports = routes;
