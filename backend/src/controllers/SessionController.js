@@ -1,3 +1,5 @@
+const jwt = require('jsonwebtoken');
+const authorization = require('../config/configToken');
 const connection = require('../database/connection');
 
 module.exports = {
@@ -7,7 +9,7 @@ module.exports = {
 
       const user = await connection('users')
         .where('id', id)
-        .select('name')
+        .select('id')
         .first();
 
       if (!user) {
@@ -16,7 +18,18 @@ module.exports = {
           .json({ error: 'No User found with this ID' });
       }
 
-      return response.json(user);
+      return response.json({
+        user,
+        token: jwt.sign(
+          {
+            id: user.id,
+          },
+          authorization.secret,
+          {
+            expiresIn: authorization.expireIn,
+          }
+        ),
+      });
     } catch (error) {
       return response.status(400).json({ error });
     }

@@ -4,7 +4,7 @@ module.exports = {
   async index(request, response) {
     try {
       const { page = 1 } = request.query;
-      const user_id = request.headers.authorization;
+      const user_id = request.userId;
 
       const [count] = await connection('accounts').count();
 
@@ -25,7 +25,7 @@ module.exports = {
   async create(request, response) {
     try {
       const { name, type, current_balance, status } = request.body;
-      const user_id = request.headers.authorization;
+      const user_id = request.userId;
 
       const [id] = await connection('accounts').insert({
         name,
@@ -44,7 +44,7 @@ module.exports = {
   async delete(request, response) {
     try {
       const { id } = request.params;
-      const user_id = request.headers.authorization;
+      const user_id = request.userId;
 
       const account = await connection('accounts')
         .where('id', id)
