@@ -4,8 +4,10 @@ const middleware = require('./middlewares/auth');
 
 const SessionController = require('./controllers/SessionController');
 const UserController = require('./controllers/UserController');
-const AccountController = require('./controllers/AccountController');
+
 const ProfileController = require('./controllers/ProfileController');
+const AccountController = require('./controllers/AccountController');
+const CategoryController = require('./controllers/CategoryController');
 
 const routes = express.Router();
 
@@ -23,5 +25,7 @@ routes.get('/accounts', AccountController.index);
 routes.post('/accounts', AccountController.create);
 routes.post('/accounts/:id', AccountController.update);
 routes.delete('/accounts/:id', AccountController.delete);
+
+routes.post('/categories', CategoryController.create);
 
 module.exports = routes;
