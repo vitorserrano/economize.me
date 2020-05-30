@@ -2,7 +2,7 @@ exports.up = function (knex) {
   return knex.schema.createTable('accounts', function (table) {
     table.increments();
 
-    table.string('name').notNullable();
+    table.string('name').unique().notNullable();
     table.string('type').notNullable();
     table.decimal('current_balance').notNullable();
     table.string('status', 1).notNullable();
