@@ -1,4 +1,5 @@
 const connection = require('../database/connection');
+const isColumnUnique = require('../utils/isColumnUnique');
 
 module.exports = {
   async index(request, response) {
@@ -26,6 +27,8 @@ module.exports = {
     try {
       const { name, type, current_balance, status } = request.body;
       const user_id = request.userId;
+
+      await isColumnUnique('accounts', 'name', name);
 
       const [id] = await connection('accounts').insert({
         name,
@@ -56,6 +59,8 @@ module.exports = {
       if (account.id != id || account.user_id != user_id) {
         return response.status(401).json({ error: 'Operation not permited.' });
       }
+
+      await isColumnUnique('accounts', 'name', name, id);
 
       await connection('accounts')
         .update({ name, type, current_balance, status })
