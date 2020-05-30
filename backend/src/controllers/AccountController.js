@@ -41,6 +41,33 @@ module.exports = {
     }
   },
 
+  async update(request, response) {
+    try {
+      const { name, type, current_balance, status } = request.body;
+      const { id } = request.params;
+      const user_id = request.userId;
+
+      const account = await connection('accounts')
+        .select('*')
+        .where('id', id)
+        .andWhere('user_id', user_id)
+        .first();
+
+      if (account.id != id || account.user_id != user_id) {
+        return response.status(401).json({ error: 'Operation not permited.' });
+      }
+
+      await connection('accounts')
+        .update({ name, type, current_balance, status })
+        .where('id', id)
+        .andWhere('user_id', user_id);
+
+      return response.status(204).send();
+    } catch (error) {
+      return response.status(400).json({ error: error.message });
+    }
+  },
+
   async delete(request, response) {
     try {
       const { id } = request.params;

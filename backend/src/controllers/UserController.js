@@ -51,8 +51,8 @@ module.exports = {
         return response.status(401).json({ error: 'Operation not permited.' });
       }
 
-      await isColumnUnique('users', 'email', email, 'id', id);
-      await isColumnUnique('users', 'phone', phone, 'id', id);
+      await isColumnUnique('users', 'email', email, id);
+      await isColumnUnique('users', 'phone', phone, id);
 
       await connection('users')
         .update({ name, email, phone, city, uf })

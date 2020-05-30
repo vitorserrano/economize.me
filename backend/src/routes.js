@@ -20,6 +20,7 @@ routes.get('/profile', ProfileController.index);
 
 routes.get('/accounts', AccountController.index);
 routes.post('/accounts', AccountController.create);
+routes.post('/accounts/:id', AccountController.update);
 routes.delete('/accounts/:id', AccountController.delete);
 
 module.exports = routes;
