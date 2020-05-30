@@ -26,6 +26,7 @@ routes.post('/accounts', AccountController.create);
 routes.post('/accounts/:id', AccountController.update);
 routes.delete('/accounts/:id', AccountController.delete);
 
+routes.get('/categories', CategoryController.index);
 routes.post('/categories', CategoryController.create);
 
 module.exports = routes;
