@@ -10,10 +10,11 @@ const ProfileController = require('./controllers/ProfileController');
 const routes = express.Router();
 
 routes.post('/sessions', SessionController.create);
+routes.post('/users', UserController.create);
+
 routes.use(middleware);
 
 routes.get('/users', UserController.index);
-routes.post('/users', UserController.create);
 routes.post('/users/:id', UserController.update);
 
 routes.get('/profile', ProfileController.index);
