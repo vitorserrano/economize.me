@@ -36,4 +36,31 @@ module.exports = {
       return response.status(400).json({ error: error.message });
     }
   },
-}
+
+  async update(request, response) {
+    try {
+      const { id } = request.params;
+      const { name, email, phone, city, uf } = request.body;
+
+      const user = await connection('users')
+        .where('id', id)
+        .select('id')
+        .first();
+
+      if (user.id !== id) {
+        return response.status(401).json({ error: 'Operation not permited.' });
+      }
+
+      await isColumnUnique('users', 'email', email, 'id', id);
+      await isColumnUnique('users', 'phone', phone, 'id', id);
+
+      await connection('users')
+        .update({ name, email, phone, city, uf })
+        .where('id', id);
+
+      return response.status(204).send();
+    } catch (error) {
+      return response.status(400).json({ error: error.message });
+    }
+  },
+};
