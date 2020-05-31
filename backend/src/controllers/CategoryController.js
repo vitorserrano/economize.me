@@ -40,4 +40,26 @@ module.exports = {
       return response.status(400).json({ error: error.message });
     }
   },
+
+  async delete(request, response) {
+    try {
+      const { id } = request.params;
+      const user_id = request.userId;
+
+      const category = await connection('categories')
+        .select('*')
+        .where('id', id)
+        .andWhere('user_id', user_id)
+        .first();
+
+      if (category.id != id || category.user_id !== user_id) {
+        return response.status(401).json({ error: 'Operation not permited.' });
+      }
+
+      await connection('categories').where('id', id).delete();
+      return response.status(204).send();
+    } catch (error) {
+      return response.json({ error: error.message });
+    }
+  },
 };

@@ -28,5 +28,6 @@ routes.delete('/accounts/:id', AccountController.delete);
 
 routes.get('/categories', CategoryController.index);
 routes.post('/categories', CategoryController.create);
+routes.delete('/categories/:id', CategoryController.delete);
 
 module.exports = routes;
