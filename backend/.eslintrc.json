@@ -1,20 +1,18 @@
 {
   "env": {
-    "es6": true,
+    "es2020": true,
     "node": true
   },
   "extends": ["airbnb-base"],
-  "globals": {
-    "Atomics": "readonly",
-    "SharedArrayBuffer": "readonly"
-  },
+  "parser": "@typescript-eslint/parser",
   "parserOptions": {
     "ecmaVersion": 11,
     "sourceType": "module"
   },
-  "plugins": ["prettier", "eslint-plugin-import-helpers"],
+  "plugins": ["@typescript-eslint", "prettier"],
   "rules": {
     "prettier/prettier": "error",
+    "no-console": "off",
     "camelcase": "off",
     "import-helpers/order-imports": [
       "warn",
